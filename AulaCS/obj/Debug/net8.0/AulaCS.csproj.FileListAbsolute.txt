@@ -1,0 +1,15 @@
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\bin\Debug\net8.0\AulaCS.exe
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\bin\Debug\net8.0\AulaCS.deps.json
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\bin\Debug\net8.0\AulaCS.runtimeconfig.json
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\bin\Debug\net8.0\AulaCS.dll
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\bin\Debug\net8.0\AulaCS.pdb
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.AssemblyInfoInputs.cache
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.AssemblyInfo.cs
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.csproj.CoreCompileInputs.cache
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.sourcelink.json
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.dll
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\refint\AulaCS.dll
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.pdb
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\AulaCS.genruntimeconfig.cache
+C:\Users\labsfiap\Desktop\Aula1_cs\AulaCS\obj\Debug\net8.0\ref\AulaCS.dll

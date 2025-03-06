@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\labsfiap\\Desktop\\AulaCS\\AulaCS\\AulaCS.csproj": {}
+    "C:\\Users\\labsfiap\\Desktop\\Aula1_cs\\AulaCS\\AulaCS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\labsfiap\\Desktop\\AulaCS\\AulaCS\\AulaCS.csproj": {
+    "C:\\Users\\labsfiap\\Desktop\\Aula1_cs\\AulaCS\\AulaCS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\labsfiap\\Desktop\\AulaCS\\AulaCS\\AulaCS.csproj",
+        "projectUniqueName": "C:\\Users\\labsfiap\\Desktop\\Aula1_cs\\AulaCS\\AulaCS.csproj",
         "projectName": "AulaCS",
-        "projectPath": "C:\\Users\\labsfiap\\Desktop\\AulaCS\\AulaCS\\AulaCS.csproj",
+        "projectPath": "C:\\Users\\labsfiap\\Desktop\\Aula1_cs\\AulaCS\\AulaCS.csproj",
         "packagesPath": "C:\\Softwares\\Nuget",
-        "outputPath": "C:\\Users\\labsfiap\\Desktop\\AulaCS\\AulaCS\\obj\\",
+        "outputPath": "C:\\Users\\labsfiap\\Desktop\\Aula1_cs\\AulaCS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
