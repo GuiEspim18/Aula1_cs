@@ -43,7 +43,7 @@ else
         Console.WriteLine("Escolha uma opção: 0 - Pedra ✊, 1 - Papel ✋ ou 2 - Tesoura ✌");
         var opcao = Console.ReadKey().KeyChar;
 
-        if (opcao != '0' &&  opcao != '1' && opcao == '2')
+        if (opcao != '0' &&  opcao != '1' && opcao != '2')
         {
             Console.Write("Escolha uma opção válida!");
             break;
@@ -123,7 +123,7 @@ void ChoosePlayer()
     {
         Console.WriteLine($"{i} {players[i].name}");
     }
-    int index = (int)Console.ReadKey().KeyChar;
+    int index = int.Parse(Console.ReadKey().KeyChar.ToString());
     player = players[index];
 }
 
