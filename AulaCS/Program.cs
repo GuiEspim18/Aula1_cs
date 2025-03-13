@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 
 Dictionary<string, (int vitórias, int empates, int derrotas)> jogadores = new Dictionary<string, (int, int, int)>();
@@ -10,64 +11,109 @@ char ShowMenu()
     Console.WriteLine("😀 Olá! Vamos jogar Jokempo?");
     Console.WriteLine("1 - Sim ou 0 - Não");
 
+    var continueMenu = Console.ReadKey().KeyChar;
+    while (continueMenu != '0' && continueMenu != '1')
+    {
+        Console.WriteLine("\nOpção inválida. Escolha 1 ou 0.");
+        continueMenu = Console.ReadKey().KeyChar;
+    }
+
     return Console.ReadKey().KeyChar;
 }
 
-var continueMenu = ShowMenu();
-;while (continueMenu != '0' && continueMenu != '1')
-{
-    Console.WriteLine("\nOpção inválida. Escolha 1 ou 0.");
-    continueMenu = ShowMenu();
-}
-
-while (continuar != '0')
+string GetPlayerName()
 {
     Console.WriteLine("\nQual é o seu nome?");
-    string nomeJogador = Console.ReadLine();
+    string name = Console.ReadLine();
 
-    while (string.IsNullOrEmpty(nomeJogador))
+    while (string.IsNullOrEmpty(name))
     {
         Console.WriteLine("Você precisa digitar o seu nome. Pode ser o seu apelido...");
-        nomeJogador = Console.ReadLine();
+        name = Console.ReadLine();
     }
 
-    if (!jogadores.ContainsKey(nomeJogador))
+    if (!jogadores.ContainsKey(name))
     {
-        jogadores[nomeJogador] = (0, 0, 0);
+        jogadores[name] = (0, 0, 0);
     }
 
-    Console.WriteLine($"Bem-vindo, {nomeJogador}! Vamos começar...");
+    return name;
+}
+
+Dictionary<string, int> GetChoices()
+{
+    Console.WriteLine("Escolha uma opção: 0 - Pedra ✊, 1 - Papel ✋ ou 2 - Tesoura ✌");
+    char option = Console.ReadKey().KeyChar;
+    while (option != '0' && option != '1' && option != '2')
+    {
+        Console.WriteLine("\nOpção inválida. Escolha 0, 1 ou 2.");
+        option = Console.ReadKey().KeyChar;
+    }
+
+    Dictionary <string, int> options = new();
+
+    options["pc"] = new Random().Next(3);
+    options["player"] = int.Parse(option.ToString());
+
+    return options;
+}
+
+char PlayAgain()
+{
+    Console.WriteLine("\nQuer jogar de novo?");
+    Console.WriteLine("1 - Sim, 0 - Não");
+    char option = Console.ReadKey().KeyChar;
+    while (option != '0' && option != '1')
+    {
+        option = Console.ReadKey().KeyChar;
+    }
+    return Console.ReadKey().KeyChar;
+}
+
+char EndMenu()
+{
+    Console.WriteLine("\nO que deseja fazer agora?");
+    Console.WriteLine("1 - Continuar com outro jogador, 2 - Listar jogadores e estatísticas, 0 - Sair");
+    char option = Console.ReadKey().KeyChar;
+    while (option != '0' && option != '1' && option != '2')
+    {
+        option = Console.ReadKey().KeyChar;
+    }
+    return Console.ReadKey().KeyChar;
+}
+
+char continueProgram = ShowMenu();
+
+while (ShowMenu() != '0')
+{
+
+    string name = GetPlayerName();
+
+    Console.WriteLine($"Bem-vindo, {name}! Vamos começar...");
 
     do
-    {
-        Console.WriteLine("Escolha uma opção: 0 - Pedra ✊, 1 - Papel ✋ ou 2 - Tesoura ✌");
-        char opcao = Console.ReadKey().KeyChar;
-        while (opcao != '0' && opcao != '1' && opcao != '2')
-        {
-            Console.WriteLine("\nOpção inválida. Escolha 0, 1 ou 2.");
-            opcao = Console.ReadKey().KeyChar;
-        }
-
-        var opcaoPC = new Random().Next(3);
+    {   
+        Dictionary<string, int> options = GetChoices();
+       
         bool vitoria = false;
 
-        switch (opcao)
+        switch (options["player"])
         {
             case '0':
                 Console.WriteLine("\nVocê escolheu Pedra ✊!");
-                vitoria = (opcaoPC == 2);
+                vitoria = (options["pc"] == 2);
                 break;
             case '1':
                 Console.WriteLine("\nVocê escolheu Papel ✋");
-                vitoria = (opcaoPC == 0);
+                vitoria = (options["pc"] == 0);
                 break;
             case '2':
                 Console.WriteLine("\nVocê escolheu Tesoura ✌");
-                vitoria = (opcaoPC == 1);
+                vitoria = (options["pc"] == 1);
                 break;
         }
 
-        switch (opcaoPC)
+        switch (options["pc"])
         {
             case 0:
                 Console.WriteLine("\nEu escolhi Pedra ✊!");
@@ -80,38 +126,30 @@ while (continuar != '0')
                 break;
         }
 
-        if (int.Parse(opcao.ToString()) == opcaoPC)
+        if (options["player"] == options["pc"])
         {
             Console.WriteLine("\n😀 Legal! Nós empatamos!");
-            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias, jogadores[nomeJogador].empates + 1, jogadores[nomeJogador].derrotas);
+            jogadores[name] = (jogadores[name].vitórias, jogadores[name].empates + 1, jogadores[name].derrotas);
         }
         else if (vitoria)
         {
             Console.WriteLine("\n😀 Parabéns! Você venceu.");
-            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias + 1, jogadores[nomeJogador].empates, jogadores[nomeJogador].derrotas);
+            jogadores[name] = (jogadores[name].vitórias + 1, jogadores[name].empates, jogadores[name].derrotas);
         }
         else
         {
             Console.WriteLine("\n😀 Haha, eu venci! Não foi dessa vez.");
-            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias, jogadores[nomeJogador].empates, jogadores[nomeJogador].derrotas + 1);
+            jogadores[name] = (jogadores[name].vitórias, jogadores[name].empates, jogadores[name].derrotas + 1);
         }
 
         Console.WriteLine("\nQuer jogar de novo?");
         Console.WriteLine("1 - Sim, 0 - Não");
-    } while (Console.ReadKey().KeyChar == '1');
+    } while (PlayAgain() == '1');
 
 
-    Console.WriteLine("\nO que deseja fazer agora?");
-    Console.WriteLine("1 - Continuar com outro jogador, 2 - Listar jogadores e estatísticas, 0 - Sair");
-    continuar = Console.ReadKey().KeyChar;
+    continueProgram = EndMenu();
 
-    while (continuar != '0' && continuar != '1' && continuar != '2')
-    {
-        Console.WriteLine("\nOpção inválida. Escolha 1, 2 ou 0.");
-        continuar = Console.ReadKey().KeyChar;
-    }
-
-    if (continuar == '2')
+    if (continueProgram == '2')
     {
         Console.WriteLine("\nJogadores e suas estatísticas:\n");
         Console.WriteLine("===================================================================");
@@ -121,16 +159,7 @@ while (continuar != '0')
         }
         Console.WriteLine("===================================================================\n");
 
-        Console.WriteLine("E agora? Quer iniciar uma nova partida?");
-        Console.WriteLine("1 - Sim ou 0 - Não");
-
-        continuar = Console.ReadKey().KeyChar;
-
-        while (continuar != '0' && continuar != '1')
-        {
-            Console.WriteLine("\nOpção inválida. Escolha 1 ou 0.");
-            continuar = Console.ReadKey().KeyChar;
-        }
+        continueProgram = PlayAgain();
     }
 }
 
