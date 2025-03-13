@@ -1,70 +1,68 @@
-﻿
-// See https://aka.ms/new-console-template for more information
-using AulaCS;
-using System;
+﻿using System;
+using System.Collections.Generic;
+
+Dictionary<string, (int vitórias, int empates, int derrotas)> jogadores = new Dictionary<string, (int, int, int)>();
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-List<Player> players = new List<Player>();
-Player player;
-
-if (players.Count > 0)
+char ShowMenu()
 {
-    Console.WriteLine("Deseja adicionar um novo player? ");
+    Console.WriteLine("😀 Olá! Vamos jogar Jokempo?");
     Console.WriteLine("1 - Sim ou 0 - Não");
-    char opt = Console.ReadKey().KeyChar;
-    if (opt == '1')
+
+    return Console.ReadKey().KeyChar;
+}
+
+var continueMenu = ShowMenu();
+;while (continueMenu != '0' && continueMenu != '1')
+{
+    Console.WriteLine("\nOpção inválida. Escolha 1 ou 0.");
+    continueMenu = ShowMenu();
+}
+
+while (continuar != '0')
+{
+    Console.WriteLine("\nQual é o seu nome?");
+    string nomeJogador = Console.ReadLine();
+
+    while (string.IsNullOrEmpty(nomeJogador))
     {
-        AddPlayer();
+        Console.WriteLine("Você precisa digitar o seu nome. Pode ser o seu apelido...");
+        nomeJogador = Console.ReadLine();
     }
 
-} else if (players.Count == 0)
-{
-    AddPlayer();
-}
-
-
-ChoosePlayer();
-
-Console.WriteLine($"😀 Olá {player.name}! Vamos jogar Jokempo?");
-Console.WriteLine("1 - Sim ou 0 - Não");
-
-var continuar = Console.ReadKey().KeyChar;
-
-if (continuar != '0' && continuar != '1')
-{
-    Console.WriteLine("Opção Errada!");
-}
-else
-{
-    while (continuar == '1')
+    if (!jogadores.ContainsKey(nomeJogador))
     {
-        Console.WriteLine("Então vamos começar...");
-        Console.WriteLine("Escolha uma opção: 0 - Pedra ✊, 1 - Papel ✋ ou 2 - Tesoura ✌");
-        var opcao = Console.ReadKey().KeyChar;
+        jogadores[nomeJogador] = (0, 0, 0);
+    }
 
-        if (opcao != '0' &&  opcao != '1' && opcao != '2')
+    Console.WriteLine($"Bem-vindo, {nomeJogador}! Vamos começar...");
+
+    do
+    {
+        Console.WriteLine("Escolha uma opção: 0 - Pedra ✊, 1 - Papel ✋ ou 2 - Tesoura ✌");
+        char opcao = Console.ReadKey().KeyChar;
+        while (opcao != '0' && opcao != '1' && opcao != '2')
         {
-            Console.Write("Escolha uma opção válida!");
-            break;
+            Console.WriteLine("\nOpção inválida. Escolha 0, 1 ou 2.");
+            opcao = Console.ReadKey().KeyChar;
         }
 
         var opcaoPC = new Random().Next(3);
-
         bool vitoria = false;
 
         switch (opcao)
         {
             case '0':
-                Console.WriteLine("\nVocê escoheu Pedra ✊!");
+                Console.WriteLine("\nVocê escolheu Pedra ✊!");
                 vitoria = (opcaoPC == 2);
                 break;
             case '1':
-                Console.WriteLine("\nVocê escoheu Papel ✋");
+                Console.WriteLine("\nVocê escolheu Papel ✋");
                 vitoria = (opcaoPC == 0);
                 break;
             case '2':
-                Console.WriteLine("\nVocê escoheu Tesoura ✌");
+                Console.WriteLine("\nVocê escolheu Tesoura ✌");
                 vitoria = (opcaoPC == 1);
                 break;
         }
@@ -85,66 +83,55 @@ else
         if (int.Parse(opcao.ToString()) == opcaoPC)
         {
             Console.WriteLine("\n😀 Legal! Nós empatamos!");
-            player.statistic.Add(1);
-        }    
+            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias, jogadores[nomeJogador].empates + 1, jogadores[nomeJogador].derrotas);
+        }
         else if (vitoria)
         {
             Console.WriteLine("\n😀 Parabéns! Você venceu.");
-            player.statistic.Add(0);
+            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias + 1, jogadores[nomeJogador].empates, jogadores[nomeJogador].derrotas);
         }
         else
         {
-            Console.WriteLine("\n😀 Haha, eu venci! Não foi dessa vez. Você pode ter mais sorte na próxima.");
-            player.statistic.Add(2);
+            Console.WriteLine("\n😀 Haha, eu venci! Não foi dessa vez.");
+            jogadores[nomeJogador] = (jogadores[nomeJogador].vitórias, jogadores[nomeJogador].empates, jogadores[nomeJogador].derrotas + 1);
         }
-
-        ShowStatisc();
 
         Console.WriteLine("\nQuer jogar de novo?");
-        Console.WriteLine("1 - Sim ou 0 - Não");
+        Console.WriteLine("1 - Sim, 0 - Não");
+    } while (Console.ReadKey().KeyChar == '1');
+
+
+    Console.WriteLine("\nO que deseja fazer agora?");
+    Console.WriteLine("1 - Continuar com outro jogador, 2 - Listar jogadores e estatísticas, 0 - Sair");
+    continuar = Console.ReadKey().KeyChar;
+
+    while (continuar != '0' && continuar != '1' && continuar != '2')
+    {
+        Console.WriteLine("\nOpção inválida. Escolha 1, 2 ou 0.");
         continuar = Console.ReadKey().KeyChar;
     }
-    Console.WriteLine("👋 Tchau! Até a próxima");
-}
 
-void AddPlayer()
-{
-    Console.Write("Escreva o seu nome:");
-    string name = Console.ReadLine();
-
-    players.Add(new Player(name));
-
-}
-
-void ChoosePlayer()
-{
-    Console.WriteLine("Escolha um player");
-    for (int i = 0; i < players.Count; i++)
+    if (continuar == '2')
     {
-        Console.WriteLine($"{i} {players[i].name}");
-    }
-    int index = int.Parse(Console.ReadKey().KeyChar.ToString());
-    player = players[index];
-}
-
-void ShowStatisc()
-{
-    Console.WriteLine($"{player.name}");
-    int defeats = 0;
-    int draws = 0;
-    int victories = 0;
-    foreach (int statistic in player.statistic)
-    {
-        switch (statistic)
+        Console.WriteLine("\nJogadores e suas estatísticas:\n");
+        Console.WriteLine("===================================================================");
+        foreach (var jogador in jogadores)
         {
-            case 0: victories++; break;
-            case 1: draws++; break;
-            case 2: defeats++; break;
+            Console.WriteLine($"{jogador.Key}: {jogador.Value.vitórias} vitórias, {jogador.Value.empates} empates, {jogador.Value.derrotas} derrotas");
+        }
+        Console.WriteLine("===================================================================\n");
+
+        Console.WriteLine("E agora? Quer iniciar uma nova partida?");
+        Console.WriteLine("1 - Sim ou 0 - Não");
+
+        continuar = Console.ReadKey().KeyChar;
+
+        while (continuar != '0' && continuar != '1')
+        {
+            Console.WriteLine("\nOpção inválida. Escolha 1 ou 0.");
+            continuar = Console.ReadKey().KeyChar;
         }
     }
-    Console.WriteLine($"{victories} Vitórias");
-    Console.WriteLine($"{defeats} Derrotas");
-    Console.WriteLine($"{draws} Empates");
-
-
 }
+
+Console.WriteLine("👋 Tchau! Até a próxima");
